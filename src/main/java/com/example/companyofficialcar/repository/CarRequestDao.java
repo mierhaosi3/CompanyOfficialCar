@@ -2,6 +2,7 @@ package com.example.companyofficialcar.repository;
 
 import com.example.companyofficialcar.domain.CarRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +23,7 @@ public interface CarRequestDao extends JpaRepository<CarRequest, Integer> {
 
     // 根据申请状态查找用车申请
     List<CarRequest> findByStatus(String status);
+
+    @Query("SELECT cr, u.username FROM CarRequest cr JOIN User u ON cr.applicantId = u.userid")
+    List<Object[]> findCarRequestsWithApplicantUsername();
 }

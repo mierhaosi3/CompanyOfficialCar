@@ -1,6 +1,7 @@
 package com.example.companyofficialcar.controller;
 
 import com.example.companyofficialcar.domain.ApprovalRecord;
+import com.example.companyofficialcar.domain.Driver;
 import com.example.companyofficialcar.service.ApprovalRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,5 +42,14 @@ public class ApprovalRecordController {
     public ResponseEntity<List<ApprovalRecord>> findApprovalRecordsByRequestId(@PathVariable Integer requestId) {
         List<ApprovalRecord> approvalRecords = approvalRecordService.findApprovalRecordsByRequestId(requestId);
         return ResponseEntity.ok(approvalRecords);
+    }
+    @GetMapping("/All")
+    public List<ApprovalRecord> getAllDrivers() {
+        return approvalRecordService.getAllApprovalRecord();
+    }
+
+    @GetMapping("/Allprofile")
+    public List<Object[]> getAllStatisticsWithFleetAndDriver(){
+        return approvalRecordService.getAllApprovalRecords();
     }
 }

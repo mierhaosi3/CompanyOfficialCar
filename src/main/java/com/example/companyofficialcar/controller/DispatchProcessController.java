@@ -64,4 +64,14 @@ public class DispatchProcessController {
         List<DispatchProcess> dispatchProcesses = dispatchProcessService.findDispatchProcessesByStatus(status);
         return new ResponseEntity<>(dispatchProcesses, HttpStatus.OK);
     }
+
+    @GetMapping("/All")
+    public List<DispatchProcess> getAllDrivers() {
+        return dispatchProcessService.getAllDispatchProcess();
+    }
+
+    @GetMapping("/Allprofile")
+    public List<Object[]> getAllStatisticsWithFleetAndDriver(){
+        return dispatchProcessService.getDispatchProcessWithUserAndDriver();
+    }
 }

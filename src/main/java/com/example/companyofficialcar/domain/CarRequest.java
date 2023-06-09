@@ -1,4 +1,5 @@
 package com.example.companyofficialcar.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ public class CarRequest {
     @Column(name = "status")
     private String status;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "applicantid", insertable = false, updatable = false)
     private User applicant;

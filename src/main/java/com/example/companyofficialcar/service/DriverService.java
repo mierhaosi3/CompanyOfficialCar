@@ -14,4 +14,6 @@ public interface DriverService {
     List<Driver> findDriversByFleetId(Integer fleetId);
 
     List<Driver> findDriversByName(String name);
+
+    List<Driver> getAllDrivers();
 }

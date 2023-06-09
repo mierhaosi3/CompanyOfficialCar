@@ -36,5 +36,17 @@ public class ApprovalRecordServiceImpl implements ApprovalRecordService {
     public List<ApprovalRecord> findApprovalRecordsByRequestId(Integer requestId) {
         return approvalRecordDao.findByRequestId(requestId);
     }
+
+    @Override
+    public List<ApprovalRecord> getAllApprovalRecord() {
+        return approvalRecordDao.findAll();
+    }
+
+    @Override
+    public List<Object[]> getAllApprovalRecords() {
+        return approvalRecordDao.findAllApprovalRecords();
+    }
+
+
 }
 

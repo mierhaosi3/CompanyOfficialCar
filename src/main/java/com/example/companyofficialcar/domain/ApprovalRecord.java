@@ -1,4 +1,5 @@
 package com.example.companyofficialcar.domain;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -24,10 +25,14 @@ public class ApprovalRecord {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "requestid", insertable = false, updatable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
     private CarRequest carRequest;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "approverid", insertable = false, updatable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
     private User approver;
 
     public Integer getRecordId() {

@@ -40,4 +40,15 @@ public class CarRequestServiceImpl implements CarRequestService {
     public List<CarRequest> findCarRequestsByStatus(String status) {
         return carRequestDao.findByStatus(status);
     }
+
+    @Override
+    public List<CarRequest> getAllCarRequest() {
+        return carRequestDao.findAll();
+    }
+
+    @Override
+    public List<Object[]> getCarRequestsWithApplicantUsername() {
+        return carRequestDao.findCarRequestsWithApplicantUsername();
+    }
+
 }

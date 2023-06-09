@@ -41,4 +41,14 @@ public class StatisticsServiceImpl implements StatisticsService {
     public List<Statistics> findStatisticsByDriverId(Integer driverId) {
         return statisticsDao.findByDriverId(driverId);
     }
+
+    @Override
+    public List<Statistics> getAllStatistics() {
+        return statisticsDao.findAll();
+    }
+
+    @Override
+    public List<Object[]> getAllStatisticsWithFleetAndDriver() {
+        return statisticsDao.findAllWithFleetAndDriver();
+    }
 }

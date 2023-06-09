@@ -41,4 +41,14 @@ public class VehicleServiceImpl implements VehicleService {
     public List<Vehicle> findVehiclesByVehicletype(String vehicletype) {
         return vehicleDao.findByVehicletype(vehicletype);
     }
+
+    @Override
+    public List<Vehicle> getAllVehicle() {
+        return vehicleDao.findAll();
+    }
+
+    @Override
+    public List<Object[]> getAllVehicleWithUserAndDriver() {
+        return vehicleDao.findAllWithDriverAndUser();
+    }
 }

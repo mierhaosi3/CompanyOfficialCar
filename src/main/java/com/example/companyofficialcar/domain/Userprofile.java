@@ -1,5 +1,6 @@
 package com.example.companyofficialcar.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Table(name = "userprofile")

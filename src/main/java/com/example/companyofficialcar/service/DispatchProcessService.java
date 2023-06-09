@@ -1,6 +1,7 @@
 package com.example.companyofficialcar.service;
 
 import com.example.companyofficialcar.domain.DispatchProcess;
+import com.example.companyofficialcar.domain.Driver;
 
 import java.util.List;
 
@@ -18,4 +19,9 @@ public interface DispatchProcessService {
     List<DispatchProcess> findDispatchProcessesByDriverId(Integer driverId);
 
     List<DispatchProcess> findDispatchProcessesByStatus(String status);
+
+    List<DispatchProcess> getAllDispatchProcess();
+
+    List<Object[]> getDispatchProcessWithUserAndDriver();
+
 }

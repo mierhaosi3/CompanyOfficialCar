@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/carend")
 public class CarEndController {
@@ -43,5 +45,15 @@ public class CarEndController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/All")
+    public List<CarEnd> getAllDrivers() {
+        return carEndService.getAllCarEnd();
+    }
+
+    @GetMapping("/Allprofile")
+    public List<Object[]> getAllStatisticsWithFleetAndDriver(){
+        return carEndService.getAllCarEndsWithUsername();
     }
 }

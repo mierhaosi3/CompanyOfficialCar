@@ -49,4 +49,13 @@ public class VehicleController {
         List<Vehicle> vehicles = vehicleService.findVehiclesByVehicletype(vehicleType);
         return new ResponseEntity<>(vehicles, HttpStatus.OK);
     }
+    @GetMapping("/All")
+    public List<Vehicle> getAllDrivers() {
+        return vehicleService.getAllVehicle();
+    }
+
+    @GetMapping("/Allprofile")
+    public List<Object[]> getAllStatisticsWithFleetAndDriver(){
+        return vehicleService.getAllVehicleWithUserAndDriver();
+    }
 }

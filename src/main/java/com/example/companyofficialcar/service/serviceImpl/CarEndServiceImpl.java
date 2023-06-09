@@ -2,10 +2,12 @@ package com.example.companyofficialcar.service.serviceImpl;
 
 import com.example.companyofficialcar.domain.CarEnd;
 import com.example.companyofficialcar.repository.CarEndDao;
+import com.example.companyofficialcar.repository.CarRequestDao;
 import com.example.companyofficialcar.service.CarEndService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,5 +38,15 @@ public class CarEndServiceImpl implements CarEndService {
     public CarEnd findCarEndByRequestId(Integer requestId) {
         Optional<CarEnd> optionalCarEnd = Optional.ofNullable(carEndDao.findByRequestId(requestId));
         return optionalCarEnd.orElse(null);
+    }
+
+    @Override
+    public List<CarEnd> getAllCarEnd() {
+        return carEndDao.findAll();
+    }
+
+    @Override
+    public List<Object[]> getAllCarEndsWithUsername() {
+        return carEndDao.findAllCarEndsWithUsername();
     }
 }

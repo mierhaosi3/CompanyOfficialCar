@@ -42,4 +42,9 @@ public class DriverServiceImpl implements DriverService {
     public List<Driver> findDriversByName(String name) {
         return driverDao.findByNameContaining(name);
     }
+
+    @Override
+    public List<Driver> getAllDrivers() {
+        return driverDao.findAll();
+    }
 }

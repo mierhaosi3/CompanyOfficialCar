@@ -42,4 +42,15 @@ public class StatisticsController {
     public List<Statistics> findStatisticsByDriverId(@PathVariable("driverId") Integer driverId) {
         return statisticsService.findStatisticsByDriverId(driverId);
     }
+
+    @GetMapping("/All")
+    public List<Statistics> getAllDrivers() {
+        return statisticsService.getAllStatistics();
+    }
+
+    @GetMapping("/Allprofile")
+    public List<Object[]> getAllStatisticsWithFleetAndDriver(){
+        return statisticsService.getAllStatisticsWithFleetAndDriver();
+    }
+
 }

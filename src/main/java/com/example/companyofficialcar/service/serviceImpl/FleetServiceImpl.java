@@ -60,4 +60,14 @@ public class FleetServiceImpl implements FleetService {
             return null;
         }
     }
+
+    @Override
+    public List<Fleet> getAllFleet() {
+        return fleetDao.findAll();
+    }
+
+    @Override
+    public List<Object[]> getAllFleetAndUser() {
+        return fleetDao.findAllFleet();
+    }
 }

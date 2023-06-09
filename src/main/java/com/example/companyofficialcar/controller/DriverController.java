@@ -50,4 +50,9 @@ public class DriverController {
         List<Driver> drivers = driverService.findDriversByName(name);
         return ResponseEntity.ok(drivers);
     }
+
+    @GetMapping("/All")
+    public List<Driver> getAllDrivers() {
+        return driverService.getAllDrivers();
+    }
 }

@@ -51,4 +51,14 @@ public class DispatchProcessServiceImpl implements DispatchProcessService {
     public List<DispatchProcess> findDispatchProcessesByStatus(String status) {
         return dispatchProcessDao.findByStatus(status);
     }
+
+    @Override
+    public List<DispatchProcess> getAllDispatchProcess() {
+        return dispatchProcessDao.findAll();
+    }
+
+    @Override
+    public List<Object[]> getDispatchProcessWithUserAndDriver() {
+        return dispatchProcessDao.findDispatchProcessWithUserAndDriver();
+    }
 }

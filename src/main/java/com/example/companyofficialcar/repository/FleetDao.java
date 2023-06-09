@@ -23,4 +23,8 @@ public interface FleetDao extends JpaRepository<Fleet, Integer> {
     @Modifying
     @Query("DELETE FROM Fleet f WHERE f.fleetid = :fleetid")
     void deleteFleetByCaptainId(@Param("fleetid") int fleetid);
+
+    @Query("SELECT f.fleetname, f.fleetid, u.username FROM Fleet f JOIN User u ON f.captainid = u.userid")
+    List<Object[]> findAllFleet();
+
 }

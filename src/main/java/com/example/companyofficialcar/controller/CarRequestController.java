@@ -49,4 +49,13 @@ public class CarRequestController {
         List<CarRequest> carRequests = carRequestService.findCarRequestsByStatus(status);
         return ResponseEntity.ok(carRequests);
     }
+    @GetMapping("/All")
+    public List<CarRequest> getAllDrivers() {
+        return carRequestService.getAllCarRequest();
+    }
+
+    @GetMapping("/Allprofile")
+    public List<Object[]> getAllStatisticsWithFleetAndDriver(){
+        return carRequestService.getCarRequestsWithApplicantUsername();
+    }
 }

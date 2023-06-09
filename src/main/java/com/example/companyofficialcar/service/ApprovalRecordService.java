@@ -13,4 +13,7 @@ public interface ApprovalRecordService {
 
     List<ApprovalRecord> findApprovalRecordsByRequestId(Integer requestId);
 
+    List<ApprovalRecord> getAllApprovalRecord();
+
+    List<Object[]> getAllApprovalRecords();
 }

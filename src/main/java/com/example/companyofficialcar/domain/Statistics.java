@@ -1,4 +1,5 @@
 package com.example.companyofficialcar.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,10 +21,12 @@ public class Statistics {
     @Column(name = "trips")
     private Integer trips;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fleetid", insertable = false, updatable = false)
     private Fleet fleet;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driverid", insertable = false, updatable = false)
     private Driver driver;

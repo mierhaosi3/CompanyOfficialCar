@@ -39,4 +39,14 @@ public class FleetController {
     public Fleet insertFleet(@RequestBody Fleet fleet) {
         return fleetService.insertFleet(fleet);
     }
+
+    @GetMapping("/All")
+    public List<Fleet> getAllDrivers() {
+        return fleetService.getAllFleet();
+    }
+
+    @GetMapping("/Allprofile")
+    public List<Object[]> getAllStatisticsWithFleetAndDriver(){
+        return fleetService.getAllFleetAndUser();
+    }
 }

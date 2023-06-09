@@ -2,6 +2,7 @@ package com.example.companyofficialcar.repository;
 
 import com.example.companyofficialcar.domain.DispatchProcess;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,5 +29,10 @@ public interface DispatchProcessDao extends JpaRepository<DispatchProcess, Integ
 
     // 根据状态查找派车流程
     List<DispatchProcess> findByStatus(String status);
+
+    @Query("SELECT dp, u.username, d.name FROM DispatchProcess dp " +
+            "JOIN User u ON dp.captainId = u.userid " +
+            "JOIN Driver d ON dp.driverId = d.driverId")
+    List<Object[]> findDispatchProcessWithUserAndDriver();
 }
 

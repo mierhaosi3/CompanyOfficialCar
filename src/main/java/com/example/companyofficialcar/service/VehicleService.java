@@ -15,4 +15,8 @@ public interface VehicleService {
 
     List<Vehicle> findVehiclesByVehicletype(String vehicletype);
 
+    List<Vehicle> getAllVehicle();
+
+    List<Object[]> getAllVehicleWithUserAndDriver();
+
 }

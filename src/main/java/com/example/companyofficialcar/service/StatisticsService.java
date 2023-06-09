@@ -14,4 +14,9 @@ public interface StatisticsService {
     List<Statistics> findStatisticsByFleetId(Integer fleetId);
 
     List<Statistics> findStatisticsByDriverId(Integer driverId);
+
+    List<Statistics> getAllStatistics();
+
+    List<Object[]> getAllStatisticsWithFleetAndDriver();
+
 }
