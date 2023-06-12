@@ -1,8 +1,11 @@
 package com.example.companyofficialcar.repository;
 
 import com.example.companyofficialcar.domain.Vehicle;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,10 +27,20 @@ public interface VehicleDao extends JpaRepository<Vehicle,Integer> {
     // 根据车辆类型查找车辆
     List<Vehicle> findByVehicletype(String vehicletype);
 
-    @Query("SELECT s.statisticsId, f.fleetname, u.username, d.name, s.month, s.trips " +
-            "FROM Statistics s " +
-            "LEFT JOIN Fleet f ON s.fleetId = f.fleetid " +
-            "LEFT JOIN User u ON f.captainid = u.userid " +
-            "LEFT JOIN Driver d ON s.driverId = d.driverId")
+
+    @Query("SELECT v, f.captain.userid, u.username " +
+            "FROM Vehicle v " +
+            "JOIN Fleet f ON v.fleetid = f.fleetid " +
+            "JOIN User u ON f.captain.userid = u.userid")
     List<Object[]> findAllWithDriverAndUser();
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Vehicle v SET v.fleetid = :fleetid WHERE v.vehicleid = :vehicleid")
+    void updateVehiclefleetid(@Param("vehicleid") int vehicleid, @Param("fleetid") int fleetid);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Vehicle v SET v.vehicletype = :vehicletype WHERE v.vehicleid = :vehicleid")
+    void updateVehicleType(@Param("vehicleid") int vehicleid, @Param("vehicletype") String vehicletype);
 }

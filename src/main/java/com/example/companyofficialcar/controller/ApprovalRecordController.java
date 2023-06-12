@@ -18,7 +18,7 @@ public class ApprovalRecordController {
     @Autowired
     public ApprovalRecordController(ApprovalRecordService approvalRecordService) {
         this.approvalRecordService = approvalRecordService;
-    }
+    } 
 
     @PostMapping
     public ResponseEntity<ApprovalRecord> addApprovalRecord(@RequestBody ApprovalRecord approvalRecord) {

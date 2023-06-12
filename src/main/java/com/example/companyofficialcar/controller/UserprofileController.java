@@ -5,7 +5,11 @@ import com.example.companyofficialcar.service.UserprofileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/user")
@@ -13,7 +17,7 @@ public class UserprofileController {
     private final UserprofileService userprofileService;
 
     public UserprofileController(UserprofileService userprofileService) {
-        this.userprofileService = userprofileService;
+        this.userprofileService = userprofileService;////////////////////////////////////////////////////////////                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     @GetMapping("/profile")
@@ -41,23 +45,62 @@ public class UserprofileController {
         return userprofileService.getUserProfileDetailsLeader();
     }
 
+    @GetMapping("/profileName")
+    public List<Object[]> findUserprofileByName(@RequestParam("username") String username) {
+        System.out.println(username);
+        return userprofileService.findUserprofileByName(username);
+    }
+
+
     @PostMapping("/{userid}/exchange")
     public Userprofile exchangeUserProfile(@PathVariable int userid,@RequestBody String avatar,@RequestBody String name) {
         return userprofileService.exchange(userid,avatar,name);
     }
-    @PostMapping("/{userid}/avatar")
-    public ResponseEntity<String> updateAvatar(@PathVariable int userid, @RequestBody String avatar) {
-        userprofileService.exchangeAvatar(userid, avatar);
-        return ResponseEntity.ok("头像更新成功");
+    @PostMapping("/{userid}/username")
+    public ResponseEntity<String> updateAvatar(@PathVariable int userid, @RequestBody String username) throws UnsupportedEncodingException{
+        String decodedusername = URLDecoder.decode(username, "UTF-8");
+        decodedusername = decodedusername.trim(); // 去除字符串末尾的空格和等号
+
+        // 使用正则表达式匹配并移除末尾的等号
+        Pattern pattern = Pattern.compile("(.*?)=$");
+        Matcher matcher = pattern.matcher(decodedusername);
+        if (matcher.find()) {
+            decodedusername = matcher.group(1);
+        }
+        System.out.println(decodedusername);
+        userprofileService.exchangeAvatar(userid, decodedusername);
+        return ResponseEntity.ok("username更新成功");
     }
     @PostMapping("/{userid}/name")
-    public ResponseEntity<String> updatename(@PathVariable int userid, @RequestBody String name) {
-        userprofileService.exchangename(userid, name);
+    public ResponseEntity<String> updatename(@PathVariable int userid, @RequestBody String name) throws UnsupportedEncodingException{
+        String decodedname = URLDecoder.decode(name, "UTF-8");
+        decodedname = decodedname.trim(); // 去除字符串末尾的空格和等号
+
+        // 使用正则表达式匹配并移除末尾的等号
+        Pattern pattern = Pattern.compile("(.*?)=$");
+        Matcher matcher = pattern.matcher(decodedname);
+        if (matcher.find()) {
+            decodedname = matcher.group(1);
+        }
+        System.out.println(decodedname);
+        userprofileService.exchangename(userid, decodedname);
         return ResponseEntity.ok("名称更新成功");
     }
-    @PostMapping("/{userid}/username")
-    public ResponseEntity<String> updateUsername(@PathVariable int userid, @RequestBody String username) {
-        userprofileService.exchangeUsername(userid, username);
+    @PostMapping("/{userid}/avatar")
+    public ResponseEntity<String> updateUsername(@PathVariable int userid, @RequestBody String avatar) throws UnsupportedEncodingException {
+        String decodedavatar = URLDecoder.decode(avatar, "UTF-8");
+        decodedavatar = decodedavatar.trim(); // 去除字符串末尾的空格和等号
+
+        // 使用正则表达式匹配并移除末尾的等号
+        Pattern pattern = Pattern.compile("(.*?)=$");
+        Matcher matcher = pattern.matcher(decodedavatar);
+        if (matcher.find()) {
+            decodedavatar = matcher.group(1);
+        }
+
+        System.out.println(decodedavatar);
+        System.out.println(userid);
+        userprofileService.exchangeUsername(userid, decodedavatar);
         return ResponseEntity.ok("用户名更新成功");
     }
     @PostMapping("/{userid}/password")

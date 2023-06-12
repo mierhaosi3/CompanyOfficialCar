@@ -1,6 +1,7 @@
 package com.example.companyofficialcar.service.serviceImpl;
 
 import com.example.companyofficialcar.domain.Driver;
+import com.example.companyofficialcar.domain.Vehicle;
 import com.example.companyofficialcar.repository.DriverDao;
 import com.example.companyofficialcar.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,18 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public List<Driver> getAllDrivers() {
         return driverDao.findAll();
+    }
+
+    @Override
+    public Driver exchangeDriverFleet(int driverid, int fleetid) {
+
+        driverDao.updateDriverFleet(driverid,fleetid);
+        return null;
+    }
+
+    @Override
+    public Driver exchangeDriverName(int driverid, String name) {
+        driverDao.updateDriverName(driverid,name);
+        return null;
     }
 }

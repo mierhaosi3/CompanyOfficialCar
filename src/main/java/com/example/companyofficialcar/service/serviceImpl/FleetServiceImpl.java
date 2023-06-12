@@ -33,10 +33,14 @@ public class FleetServiceImpl implements FleetService {
     }
 
     @Override
-    public Fleet exchangeFleetName(String fleetname, int captainid) {
-        Fleet fleet = fleetDao.findFleetByCaptainId(captainid);
+    public Fleet exchangeFleetName(String fleetname, int fleetid) {
+        Fleet fleet = fleetDao.findFleetByFleetid(fleetid);
+        System.out.println(fleetname);
+        System.out.println(fleetid);
         if (fleet != null) {
             fleet.setFleetname(fleetname);
+            System.out.println(fleetname);
+            System.out.println(fleetid);
             return fleetDao.save(fleet);
         }
         return null;
@@ -44,7 +48,7 @@ public class FleetServiceImpl implements FleetService {
 
     @Override
     public Fleet deleteFleet(int fleetid) {
-        Fleet fleet = fleetDao.findFleetByCaptainId(fleetid);
+        Fleet fleet = fleetDao.findFleetByFleetid(fleetid);
         if (fleet != null) {
             fleetDao.deleteFleetByCaptainId(fleetid);
             return fleet;
@@ -54,7 +58,7 @@ public class FleetServiceImpl implements FleetService {
 
     @Override
     public Fleet insertFleet(Fleet fleet) {
-        if (fleetDao.findFleetByCaptainId(fleet.getCaptainid()) == null) {
+        if (fleetDao.findFleetByFleetid(fleet.getCaptainid()) == null) {
             return fleetDao.save(fleet);
         } else {
             return null;
@@ -69,5 +73,11 @@ public class FleetServiceImpl implements FleetService {
     @Override
     public List<Object[]> getAllFleetAndUser() {
         return fleetDao.findAllFleet();
+    }
+
+    @Override
+    public Fleet exchangename(int fleetid, String fleetname) {
+        fleetDao.updateFleetName(fleetid,fleetname);
+        return null;
     }
 }

@@ -2,6 +2,7 @@ package com.example.companyofficialcar.service;
 
 import com.example.companyofficialcar.domain.CarRequest;
 import com.example.companyofficialcar.domain.DispatchProcess;
+import com.example.companyofficialcar.domain.Driver;
 
 import java.util.List;
 
@@ -20,5 +21,6 @@ public interface CarRequestService {
 
     List<Object[]> getCarRequestsWithApplicantUsername();
 
+    CarRequest exchangeStatus(int driverid, String name);
 
 }

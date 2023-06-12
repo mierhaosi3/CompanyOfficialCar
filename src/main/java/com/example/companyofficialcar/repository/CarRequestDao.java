@@ -1,8 +1,11 @@
 package com.example.companyofficialcar.repository;
 
 import com.example.companyofficialcar.domain.CarRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,4 +29,9 @@ public interface CarRequestDao extends JpaRepository<CarRequest, Integer> {
 
     @Query("SELECT cr, u.username FROM CarRequest cr JOIN User u ON cr.applicantId = u.userid")
     List<Object[]> findCarRequestsWithApplicantUsername();
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE CarRequest cr SET cr.status = :status WHERE cr.requestId = :requestid")
+    void updateStatus(@Param("requestid") int requestid, @Param("status") String status);
 }

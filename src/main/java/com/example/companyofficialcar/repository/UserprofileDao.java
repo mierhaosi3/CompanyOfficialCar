@@ -41,6 +41,12 @@ public interface UserprofileDao extends JpaRepository<Userprofile,Integer> {
             "FROM User u JOIN Userprofile up ON u.userid = up.userid " +
             "WHERE u.usertype = '领导'")
     List<Object[]> getUserProfileDetailsLeader();
+
+    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar " +
+            "FROM User u JOIN Userprofile up ON u.userid = up.userid " +
+            "WHERE u.username = :username")
+    List<Object[]> getUserprofileByName(@Param("username") String username);
+
     @Modifying
     @Transactional
     @Query("UPDATE Userprofile up SET up.avatar = :avatar WHERE up.user.userid = :userid")

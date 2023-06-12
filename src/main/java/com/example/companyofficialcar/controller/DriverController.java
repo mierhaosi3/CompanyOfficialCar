@@ -4,10 +4,16 @@ import com.example.companyofficialcar.domain.Driver;
 import com.example.companyofficialcar.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/drivers")
@@ -44,6 +50,33 @@ public class DriverController {
         List<Driver> drivers = driverService.findDriversByFleetId(fleetId);
         return ResponseEntity.ok(drivers);
     }
+
+
+    @PostMapping("/{driverid}/name")
+    public ResponseEntity<String> exchangeDriverName(@PathVariable int driverid, @RequestBody String name) throws UnsupportedEncodingException {
+
+        String decodedfleetname = URLDecoder.decode(name, "UTF-8");
+        decodedfleetname = decodedfleetname.trim(); // 去除字符串末尾的空格和等号
+
+        // 使用正则表达式匹配并移除末尾的等号
+        Pattern pattern = Pattern.compile("(.*?)=$");
+        Matcher matcher = pattern.matcher(decodedfleetname);
+        if (matcher.find()) {
+            decodedfleetname = matcher.group(1);
+        }
+        System.out.println(decodedfleetname);
+        driverService.exchangeDriverName(driverid, decodedfleetname);
+        return ResponseEntity.ok("exchangeDriverName");
+    }
+
+    @PostMapping(value = "/{driverid}/fleetid", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<String> exchangeDriverFleet(@PathVariable int driverid, @RequestBody MultiValueMap<String, String> formData) {
+        int fleetid = Integer.parseInt(formData.getFirst("fleetid"));
+        System.out.println(fleetid);
+        driverService.exchangeDriverFleet(driverid, fleetid);
+        return ResponseEntity.ok("exchangeDriverFleet");
+    }
+
 
     @GetMapping("/name/{name}")
     public ResponseEntity<List<Driver>> getDriversByName(@PathVariable("name") String name) {

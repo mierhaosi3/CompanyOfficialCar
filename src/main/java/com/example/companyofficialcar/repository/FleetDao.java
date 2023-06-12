@@ -1,6 +1,7 @@
 package com.example.companyofficialcar.repository;
 
 import com.example.companyofficialcar.domain.Fleet;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +19,7 @@ public interface FleetDao extends JpaRepository<Fleet, Integer> {
     List<Object[]> findCaptainDetails();
 
     @Query("SELECT f FROM Fleet f WHERE f.fleetid = :fleetid ")
-    Fleet findFleetByCaptainId(@Param("fleetid") int fleetid);
+    Fleet findFleetByFleetid(@Param("fleetid") int fleetid);
 
     @Modifying
     @Query("DELETE FROM Fleet f WHERE f.fleetid = :fleetid")
@@ -26,5 +27,10 @@ public interface FleetDao extends JpaRepository<Fleet, Integer> {
 
     @Query("SELECT f.fleetname, f.fleetid, u.username FROM Fleet f JOIN User u ON f.captainid = u.userid")
     List<Object[]> findAllFleet();
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Fleet f SET f.fleetname = :fleetname WHERE f.fleetid = :fleetid")
+    void updateFleetName(@Param("fleetid") int fleetid, @Param("fleetname") String fleetname);
 
 }

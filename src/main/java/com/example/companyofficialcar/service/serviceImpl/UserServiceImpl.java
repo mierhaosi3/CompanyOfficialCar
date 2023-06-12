@@ -6,6 +6,8 @@ import com.example.companyofficialcar.service.UserService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Resource
@@ -36,5 +38,15 @@ public class UserServiceImpl implements UserService {
             }
             return newUser;
         }
+    }
+
+    @Override
+    public List<User> getAllUser() {
+        return userDao.findAll();
+    }
+
+    @Override
+    public User getUserById(int userid) {
+        return userDao.findByUserid(userid);
     }
 }

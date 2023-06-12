@@ -1,7 +1,11 @@
 package com.example.companyofficialcar.repository;
 
 import com.example.companyofficialcar.domain.Driver;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,6 +27,14 @@ public interface DriverDao extends JpaRepository<Driver,Integer> {
     // 根据司机姓名模糊查询司机
     List<Driver> findByNameContaining(String name);
 
+    @Modifying
+    @Transactional
+    @Query("UPDATE Driver d SET d.fleetId = :fleetid WHERE d.driverId = :driverid")
+    void updateDriverFleet(@Param("driverid") int driverid, @Param("fleetid") int fleetid);
 
+    @Modifying
+    @Transactional
+    @Query("UPDATE Driver d SET d.name = :name WHERE d.driverId = :driverid")
+    void updateDriverName(@Param("driverid") int driverid, @Param("name") String name);
 
 }

@@ -12,6 +12,7 @@ public interface UserprofileService {
     List<Object[]> getUserProfileDetailsDriverCap();
     List<Object[]> getUserProfileDetailsStaff();
     List<Object[]> getUserProfileDetailsLeader();
+    List<Object[]> findUserprofileByName(String username);
 
     Userprofile exchange(int userid,String username,String avatar);
     Userprofile exchangeUsername(int userid,String username);

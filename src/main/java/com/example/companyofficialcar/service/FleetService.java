@@ -10,7 +10,7 @@ public interface FleetService {
 
     Fleet exchangeFleetID(int fleetid,int captainid);
 
-    Fleet exchangeFleetName(String name,int captainid);
+    Fleet exchangeFleetName(String name,int fleetid);
 
     Fleet deleteFleet(int captainid);
 
@@ -20,5 +20,5 @@ public interface FleetService {
 
     List<Object[]> getAllFleetAndUser();
 
-
+    Fleet exchangename(int fleetid,String fleetname);
 }
