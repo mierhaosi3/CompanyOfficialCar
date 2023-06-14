@@ -18,6 +18,13 @@ public interface FleetDao extends JpaRepository<Fleet, Integer> {
             "JOIN Fleet f ON f.captainid = u.userid")
     List<Object[]> findCaptainDetails();
 
+    @Query("SELECT u.userid, up.name, u.usertype, u.username " +
+            "FROM User u JOIN Userprofile up ON u.userid = up.userid " +
+            "JOIN Fleet f ON f.captainid = u.userid "+
+            "WHERE f.fleetname = :fleetname")
+    List<Object[]> findCaptainNameDetails(@Param("fleetname") String fleetname);
+
+
     @Query("SELECT f FROM Fleet f WHERE f.fleetid = :fleetid ")
     Fleet findFleetByFleetid(@Param("fleetid") int fleetid);
 

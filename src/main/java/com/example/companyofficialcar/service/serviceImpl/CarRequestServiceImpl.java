@@ -52,6 +52,11 @@ public class CarRequestServiceImpl implements CarRequestService {
     }
 
     @Override
+    public List<Object[]> findCarRequestsWithApplicantUsernameByApplicantId(Integer ApplicantId) {
+        return carRequestDao.findCarRequestsWithApplicantUsernameByApplicantId(ApplicantId);
+    }
+
+    @Override
     public CarRequest exchangeStatus(int driverid, String status) {
         carRequestDao.updateStatus(driverid,status);
         return null;

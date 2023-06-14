@@ -76,6 +76,11 @@ public class FleetServiceImpl implements FleetService {
     }
 
     @Override
+    public List<Object[]> getCaptainNameDetails(String fleetname) {
+        return fleetDao.findCaptainNameDetails(fleetname);
+    }
+
+    @Override
     public Fleet exchangename(int fleetid, String fleetname) {
         fleetDao.updateFleetName(fleetid,fleetname);
         return null;

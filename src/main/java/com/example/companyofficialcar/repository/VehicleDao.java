@@ -34,6 +34,14 @@ public interface VehicleDao extends JpaRepository<Vehicle,Integer> {
             "JOIN User u ON f.captain.userid = u.userid")
     List<Object[]> findAllWithDriverAndUser();
 
+
+    @Query("SELECT v, f.captain.userid, u.username " +
+            "FROM Vehicle v " +
+            "JOIN Fleet f ON v.fleetid = f.fleetid " +
+            "JOIN User u ON f.captain.userid = u.userid " +
+            "WHERE v.fleetid = :fleetid")
+    List<Object[]> findFleetName(@Param("fleetid") int fleetid);
+
     @Modifying
     @Transactional
     @Query("UPDATE Vehicle v SET v.fleetid = :fleetid WHERE v.vehicleid = :vehicleid")

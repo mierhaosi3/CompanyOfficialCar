@@ -20,5 +20,8 @@ public interface FleetService {
 
     List<Object[]> getAllFleetAndUser();
 
+    List<Object[]> getCaptainNameDetails(String fleetname);
+
+
     Fleet exchangename(int fleetid,String fleetname);
 }

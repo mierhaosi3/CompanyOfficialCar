@@ -61,4 +61,10 @@ public class DispatchProcessServiceImpl implements DispatchProcessService {
     public List<Object[]> getDispatchProcessWithUserAndDriver() {
         return dispatchProcessDao.findDispatchProcessWithUserAndDriver();
     }
+
+    @Override
+    public DispatchProcess exchangeStatus(int driverid, String status) {
+        dispatchProcessDao.updateStatus(driverid,status);
+        return null;
+    }
 }

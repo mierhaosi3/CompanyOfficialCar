@@ -1,5 +1,6 @@
 package com.example.companyofficialcar.service;
 
+import com.example.companyofficialcar.domain.CarRequest;
 import com.example.companyofficialcar.domain.DispatchProcess;
 import com.example.companyofficialcar.domain.Driver;
 
@@ -23,5 +24,8 @@ public interface DispatchProcessService {
     List<DispatchProcess> getAllDispatchProcess();
 
     List<Object[]> getDispatchProcessWithUserAndDriver();
+
+    DispatchProcess exchangeStatus(int driverid, String status);
+
 
 }

@@ -21,6 +21,9 @@ public interface CarRequestService {
 
     List<Object[]> getCarRequestsWithApplicantUsername();
 
+    List<Object[]>findCarRequestsWithApplicantUsernameByApplicantId(Integer ApplicantId);
+
     CarRequest exchangeStatus(int driverid, String name);
+
 
 }

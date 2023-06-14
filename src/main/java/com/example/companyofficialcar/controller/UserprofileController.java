@@ -51,6 +51,12 @@ public class UserprofileController {
         return userprofileService.findUserprofileByName(username);
     }
 
+    @GetMapping("/profileUserid")
+    public List<Object[]> findUserprofileByName(@RequestParam("userid") int userid) {
+        System.out.println(userid);
+        return userprofileService.findUserprofileByUserid(userid);
+    }
+
 
     @PostMapping("/{userid}/exchange")
     public Userprofile exchangeUserProfile(@PathVariable int userid,@RequestBody String avatar,@RequestBody String name) {
@@ -104,8 +110,20 @@ public class UserprofileController {
         return ResponseEntity.ok("用户名更新成功");
     }
     @PostMapping("/{userid}/password")
-    public ResponseEntity<String> updatePassword(@PathVariable int userid, @RequestBody String password) {
-        userprofileService.exchangePassword(userid, password);
+    public ResponseEntity<String> updatePassword(@PathVariable int userid, @RequestBody String password) throws UnsupportedEncodingException {
+        String decodedavatar = URLDecoder.decode(password, "UTF-8");
+        decodedavatar = decodedavatar.trim(); // 去除字符串末尾的空格和等号
+
+        // 使用正则表达式匹配并移除末尾的等号
+        Pattern pattern = Pattern.compile("(.*?)=$");
+        Matcher matcher = pattern.matcher(decodedavatar);
+        if (matcher.find()) {
+            decodedavatar = matcher.group(1);
+        }
+
+        System.out.println(decodedavatar);
+        System.out.println(userid);
+        userprofileService.exchangePassword(userid, decodedavatar);
         return ResponseEntity.ok("密码更新成功");
     }
     @PostMapping("/{userid}/usertype")

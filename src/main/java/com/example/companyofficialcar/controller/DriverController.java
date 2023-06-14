@@ -52,6 +52,7 @@ public class DriverController {
     }
 
 
+
     @PostMapping("/{driverid}/name")
     public ResponseEntity<String> exchangeDriverName(@PathVariable int driverid, @RequestBody String name) throws UnsupportedEncodingException {
 
@@ -78,8 +79,8 @@ public class DriverController {
     }
 
 
-    @GetMapping("/name/{name}")
-    public ResponseEntity<List<Driver>> getDriversByName(@PathVariable("name") String name) {
+    @GetMapping("/name")
+    public ResponseEntity<List<Driver>> getDriversByName(@RequestParam("name") String name) {
         List<Driver> drivers = driverService.findDriversByName(name);
         return ResponseEntity.ok(drivers);
     }

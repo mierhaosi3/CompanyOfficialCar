@@ -53,6 +53,11 @@ public class UserprofileServiceImpl implements UserprofileService {
         return userprofileDao.getUserprofileByName(name);
     }
 
+    @Override
+    public List<Object[]> findUserprofileByUserid(int userid) {
+        return userprofileDao.getUserprofileByUserid(userid);
+    }
+
 
     @Override
     public Userprofile exchange(int userid,String name,String avatar) {

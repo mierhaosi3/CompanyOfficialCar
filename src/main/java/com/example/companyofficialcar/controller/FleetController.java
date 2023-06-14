@@ -30,6 +30,11 @@ public class FleetController {
         return fleetService.exchangeFleetID(fleetid, captainid);
     }
 
+    @GetMapping("/fleetname")
+    public List<Object[]> getUserProfileDetailsStaff(@RequestParam("fleetname") String fleetname) {
+        return fleetService.getCaptainNameDetails(fleetname);
+    }
+
     @PostMapping("/{fleetid}/fleetname")
     public ResponseEntity<String> exchangeFleetName(@RequestBody String fleetname, @PathVariable int fleetid) throws UnsupportedEncodingException {
 

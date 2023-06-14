@@ -68,6 +68,12 @@ public class VehicleController {
         return ResponseEntity.ok("exchangeVehicleType");
     }
 
+    @GetMapping("/vehicleFleet")
+    public List<Object[]> findUserprofileByName(@RequestParam("fleetid") int fleetid) {
+        System.out.println(fleetid);
+        return vehicleService.getVehicleFleetid(fleetid);
+    }
+
     @PostMapping(value = "/{vehicleid}/fleetid", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<String> exchangeVehicleFleet(@PathVariable int vehicleid, @RequestBody MultiValueMap<String, String> formData) {
         int fleetid = Integer.parseInt(formData.getFirst("fleetid"));

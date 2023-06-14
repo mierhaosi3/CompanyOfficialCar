@@ -17,6 +17,9 @@ public interface VehicleService {
 
     List<Vehicle> getAllVehicle();
 
+    List<Object[]> getVehicleFleetid(int fleetid);
+
+
     List<Object[]> getAllVehicleWithUserAndDriver();
 
     Vehicle updateVehiclefleetid(int vehicleid,int fleetid);

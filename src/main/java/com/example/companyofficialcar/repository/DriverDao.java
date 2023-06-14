@@ -27,6 +27,7 @@ public interface DriverDao extends JpaRepository<Driver,Integer> {
     // 根据司机姓名模糊查询司机
     List<Driver> findByNameContaining(String name);
 
+
     @Modifying
     @Transactional
     @Query("UPDATE Driver d SET d.fleetId = :fleetid WHERE d.driverId = :driverid")

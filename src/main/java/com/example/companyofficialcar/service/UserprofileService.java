@@ -13,6 +13,8 @@ public interface UserprofileService {
     List<Object[]> getUserProfileDetailsStaff();
     List<Object[]> getUserProfileDetailsLeader();
     List<Object[]> findUserprofileByName(String username);
+    List<Object[]> findUserprofileByUserid(int userid);
+
 
     Userprofile exchange(int userid,String username,String avatar);
     Userprofile exchangeUsername(int userid,String username);

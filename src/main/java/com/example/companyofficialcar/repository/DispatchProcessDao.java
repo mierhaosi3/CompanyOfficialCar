@@ -1,8 +1,11 @@
 package com.example.companyofficialcar.repository;
 
 import com.example.companyofficialcar.domain.DispatchProcess;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -34,5 +37,10 @@ public interface DispatchProcessDao extends JpaRepository<DispatchProcess, Integ
             "JOIN User u ON dp.captainId = u.userid " +
             "JOIN Driver d ON dp.driverId = d.driverId")
     List<Object[]> findDispatchProcessWithUserAndDriver();
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE DispatchProcess dp SET dp.status = :status WHERE dp.requestId = :requestid")
+    void updateStatus(@Param("requestid") int requestid, @Param("status") String status);
 }
 

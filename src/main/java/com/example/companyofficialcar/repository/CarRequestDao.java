@@ -30,6 +30,10 @@ public interface CarRequestDao extends JpaRepository<CarRequest, Integer> {
     @Query("SELECT cr, u.username FROM CarRequest cr JOIN User u ON cr.applicantId = u.userid")
     List<Object[]> findCarRequestsWithApplicantUsername();
 
+
+    @Query("SELECT cr, u.username FROM CarRequest cr JOIN User u ON cr.applicantId = u.userid WHERE cr.applicantId = :applicantid")
+    List<Object[]> findCarRequestsWithApplicantUsernameByApplicantId(@Param("applicantid") Integer applicantid);
+
     @Modifying
     @Transactional
     @Query("UPDATE CarRequest cr SET cr.status = :status WHERE cr.requestId = :requestid")

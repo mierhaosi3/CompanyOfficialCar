@@ -7,7 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/dispatchprocess")
@@ -29,6 +33,23 @@ public class DispatchProcessController {
     public ResponseEntity<Void> deleteDispatchProcess(@PathVariable Integer processId) {
         dispatchProcessService.deleteDispatchProcessById(processId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/{processid}/status")
+    public ResponseEntity<String> exchangeDriverName(@PathVariable int processid, @RequestBody String status) throws UnsupportedEncodingException {
+
+        String decodedfleetname = URLDecoder.decode(status, "UTF-8");
+        decodedfleetname = decodedfleetname.trim(); // 去除字符串末尾的空格和等号
+
+        // 使用正则表达式匹配并移除末尾的等号
+        Pattern pattern = Pattern.compile("(.*?)=$");
+        Matcher matcher = pattern.matcher(decodedfleetname);
+        if (matcher.find()) {
+            decodedfleetname = matcher.group(1);
+        }
+        System.out.println(decodedfleetname);
+        dispatchProcessService.exchangeStatus(processid, decodedfleetname);
+        return ResponseEntity.ok("exchangeDriverName");
     }
 
     @PutMapping

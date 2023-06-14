@@ -48,6 +48,11 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    public List<Object[]> getVehicleFleetid(int fleetid) {
+        return vehicleDao.findFleetName(fleetid);
+    }
+
+    @Override
     public List<Object[]> getAllVehicleWithUserAndDriver() {
         return vehicleDao.findAllWithDriverAndUser();
     }
