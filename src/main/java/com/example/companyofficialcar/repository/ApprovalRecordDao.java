@@ -21,6 +21,9 @@ public interface ApprovalRecordDao extends JpaRepository<ApprovalRecord, Integer
     // 根据申请ID查找审核记录
     List<ApprovalRecord> findByRequestId(Integer requestId);
 
+    @Query("SELECT COUNT(c) FROM ApprovalRecord c")
+    Integer countApprovalRecord();
+
     @Query("SELECT ar, cr, u.username " +
             "FROM ApprovalRecord ar " +
             "JOIN CarRequest cr ON ar.requestId = cr.requestId " +

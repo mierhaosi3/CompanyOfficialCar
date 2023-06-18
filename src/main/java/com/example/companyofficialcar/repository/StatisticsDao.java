@@ -24,6 +24,6 @@ public interface StatisticsDao extends JpaRepository<Statistics, Integer> {
     // 根据司机ID查找统计数据
     List<Statistics> findByDriverId(Integer driverId);
 
-    @Query("SELECT s.statisticsId, f.fleetname,  d.name,  s.month, s.trips FROM Statistics s LEFT JOIN Fleet f ON s.fleetId = f.fleetid LEFT JOIN Driver d ON s.driverId = d.driverId")
+    @Query("SELECT s.statisticsId, f.fleetname,  d.name,  s.month, s.trips  ,s , d FROM Statistics s LEFT JOIN Fleet f ON s.fleetId = f.fleetid LEFT JOIN Driver d ON s.driverId = d.driverId")
     List<Object[]> findAllWithFleetAndDriver();
 }

@@ -34,13 +34,39 @@ public interface DispatchProcessDao extends JpaRepository<DispatchProcess, Integ
     List<DispatchProcess> findByStatus(String status);
 
     @Query("SELECT dp, u.username, d.name FROM DispatchProcess dp " +
-            "JOIN User u ON dp.captainId = u.userid " +
+            "JOIN User u ON dp.captainId = u.userid  " +
             "JOIN Driver d ON dp.driverId = d.driverId")
     List<Object[]> findDispatchProcessWithUserAndDriver();
+
+    @Query("SELECT dp, u.username, d.name, u2.username " +
+            "FROM DispatchProcess dp " +
+            "JOIN User u ON dp.captainId = u.userid " +
+            "JOIN Driver d ON dp.driverId = d.driverId " +
+            "JOIN User u2 ON dp.requestId = u2.userid")
+    List<Object[]> findDispatchProcessWithUserAndDriverAndUserName();
+
+    @Query("SELECT dp, u.username, d.name, u2.username " +
+            "FROM DispatchProcess dp " +
+            "JOIN User u ON dp.captainId = u.userid " +
+            "JOIN Driver d ON dp.driverId = d.driverId " +
+            "JOIN User u2 ON dp.requestId = u2.userid " +
+            "WHERE d.name = (SELECT username FROM User WHERE userid = :userid)")
+    List<Object[]> findDispatchProcessWithUserAndDriverAndUserNameAndDriver(@Param("userid") int userid);
 
     @Modifying
     @Transactional
     @Query("UPDATE DispatchProcess dp SET dp.status = :status WHERE dp.requestId = :requestid")
     void updateStatus(@Param("requestid") int requestid, @Param("status") String status);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE DispatchProcess dp SET dp.driverId = :driverid WHERE dp.requestId = :requestid")
+    void updatedDriverId(@Param("requestid") int requestid, @Param("driverid") int driverid);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE DispatchProcess dp SET dp.vehicleid = :vehicleid WHERE dp.requestId = :requestid")
+    void updateVehicleid(@Param("requestid") int requestid, @Param("vehicleid") int vehicleid);
+
 }
 

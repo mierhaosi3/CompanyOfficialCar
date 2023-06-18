@@ -1,7 +1,6 @@
 package com.example.companyofficialcar.service.serviceImpl;
 
 import com.example.companyofficialcar.domain.Driver;
-import com.example.companyofficialcar.domain.Vehicle;
 import com.example.companyofficialcar.repository.DriverDao;
 import com.example.companyofficialcar.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +44,23 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
+    public List<Object[]> findCaptainDrivers(Integer userid) {
+        return driverDao.findCaptainDrivers(userid);
+    }
+
+    @Override
     public List<Driver> getAllDrivers() {
         return driverDao.findAll();
+    }
+
+    @Override
+    public List<Object[]> getCaptionDriver(Integer captionid) {
+        return driverDao.findCaptionDriver(captionid);
+    }
+
+    @Override
+    public List<Object[]> getCaptionCar(Integer captionid) {
+        return driverDao.findCaptionCar(captionid);
     }
 
     @Override

@@ -17,8 +17,11 @@ public class StatisticsController {
         this.statisticsService = statisticsService;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public Statistics addStatistics(@RequestBody Statistics statistics) {
+        Integer statustucsid = statistics.getStatisticsId();
+        statistics.setStatisticsId(statustucsid);
+        System.out.println(statustucsid);
         return statisticsService.addStatistics(statistics);
     }
 

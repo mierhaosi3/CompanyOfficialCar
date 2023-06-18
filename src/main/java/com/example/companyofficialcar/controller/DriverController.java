@@ -1,5 +1,6 @@
 package com.example.companyofficialcar.controller;
 
+import com.example.companyofficialcar.domain.DispatchProcess;
 import com.example.companyofficialcar.domain.Driver;
 import com.example.companyofficialcar.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,20 @@ public class DriverController {
         this.driverService = driverService;
     }
 
-    @PostMapping
-    public ResponseEntity<Driver> addDriver(@RequestBody Driver driver) {
+    @PostMapping("/addDriver")
+    public ResponseEntity<Driver> addDriver(
+            @RequestParam String name,
+            @RequestParam(required = false) Integer fleetid,
+            @RequestParam int driverid) {
+
+        Driver driver = new Driver();
+        driver.setName(name);
+        driver.setDriverId(driverid);
+
+        if (fleetid != null) {
+            driver.setFleetId(fleetid);
+        }
+
         Driver createdDriver = driverService.addDriver(driver);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdDriver);
     }
@@ -51,7 +64,11 @@ public class DriverController {
         return ResponseEntity.ok(drivers);
     }
 
-
+    @GetMapping("/count/{userid}")
+    public ResponseEntity<List<Object[]>> getCaptainDrivers(@PathVariable("userid") Integer userId) {
+        List<Object[]> drivers = driverService.findCaptainDrivers(userId);
+        return ResponseEntity.ok(drivers);
+    }
 
     @PostMapping("/{driverid}/name")
     public ResponseEntity<String> exchangeDriverName(@PathVariable int driverid, @RequestBody String name) throws UnsupportedEncodingException {
@@ -88,5 +105,35 @@ public class DriverController {
     @GetMapping("/All")
     public List<Driver> getAllDrivers() {
         return driverService.getAllDrivers();
+    }
+
+    @GetMapping("/AllCar/{captainid}")
+    public ResponseEntity<List<Object[]>> getAllCar(@PathVariable Integer captainid) {
+        List<Object[]> cars = driverService.getCaptionCar(captainid);
+        if (cars != null && !cars.isEmpty()) {
+            return new ResponseEntity<>(cars, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/AllDrivers/{captainid}")
+    public ResponseEntity<List<Object[]>> getAllDrivers(@PathVariable Integer captainid) {
+        List<Object[]> cars = driverService.getCaptionDriver(captainid);
+        if (cars != null && !cars.isEmpty()) {
+            return new ResponseEntity<>(cars, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/AllCaptionCar/{captainid}")
+    public ResponseEntity<List<Object[]>> getCaptionCar(@PathVariable Integer captainid) {
+        List<Object[]> cars = driverService.getCaptionCar(captainid);
+        if (cars != null && !cars.isEmpty()) {
+            return new ResponseEntity<>(cars, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

@@ -22,6 +22,9 @@ public class DispatchProcess {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "vehicleid")
+    private Integer vehicleid;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "requestid", insertable = false, updatable = false)
@@ -99,5 +102,13 @@ public class DispatchProcess {
 
     public void setDriver(Driver driver) {
         this.driver = driver;
+    }
+
+    public Integer getVehicleid() {
+        return vehicleid;
+    }
+
+    public void setVehicleid(Integer vehicleid) {
+        this.vehicleid = vehicleid;
     }
 }

@@ -16,4 +16,7 @@ public interface ApprovalRecordService {
     List<ApprovalRecord> getAllApprovalRecord();
 
     List<Object[]> getAllApprovalRecords();
+
+    Integer countApprovalRecord();
+
 }

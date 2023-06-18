@@ -25,5 +25,5 @@ public interface CarRequestService {
 
     CarRequest exchangeStatus(int driverid, String name);
 
-
+    Integer countCarRequests();
 }

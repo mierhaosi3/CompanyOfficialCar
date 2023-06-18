@@ -19,8 +19,13 @@ public class CarEndController {
         this.carEndService = carEndService;
     }
 
-    @PostMapping("/")
+    @PostMapping("/add")
     public ResponseEntity<CarEnd> addCarEnd(@RequestBody CarEnd carEnd) {
+        System.out.println(carEnd);
+        Integer EndId = carEnd.getEndId();
+        // 设置 requestid 到 CarRequest 对象
+        carEnd.setEndId(EndId);
+        System.out.println(EndId);
         CarEnd newCarEnd = carEndService.addCarEnd(carEnd);
         return ResponseEntity.status(HttpStatus.CREATED).body(newCarEnd);
     }

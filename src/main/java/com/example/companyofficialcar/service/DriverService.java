@@ -16,7 +16,14 @@ public interface DriverService {
 
     List<Driver> findDriversByName(String name);
 
+    List<Object[]> findCaptainDrivers(Integer userid);
+
     List<Driver> getAllDrivers();
+
+    List<Object[]> getCaptionDriver(Integer captionid);
+
+    List<Object[]> getCaptionCar(Integer captionid);
+
 
     Driver exchangeDriverFleet(int driverid, int fleetid);
 

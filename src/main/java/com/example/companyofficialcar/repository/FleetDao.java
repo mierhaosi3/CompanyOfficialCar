@@ -40,4 +40,7 @@ public interface FleetDao extends JpaRepository<Fleet, Integer> {
     @Query("UPDATE Fleet f SET f.fleetname = :fleetname WHERE f.fleetid = :fleetid")
     void updateFleetName(@Param("fleetid") int fleetid, @Param("fleetname") String fleetname);
 
+
+
+
 }

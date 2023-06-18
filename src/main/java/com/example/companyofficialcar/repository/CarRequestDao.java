@@ -30,6 +30,8 @@ public interface CarRequestDao extends JpaRepository<CarRequest, Integer> {
     @Query("SELECT cr, u.username FROM CarRequest cr JOIN User u ON cr.applicantId = u.userid")
     List<Object[]> findCarRequestsWithApplicantUsername();
 
+    @Query("SELECT COUNT(c) FROM CarRequest c WHERE c.status = '未审批'")
+    Integer countCarRequests();
 
     @Query("SELECT cr, u.username FROM CarRequest cr JOIN User u ON cr.applicantId = u.userid WHERE cr.applicantId = :applicantid")
     List<Object[]> findCarRequestsWithApplicantUsernameByApplicantId(@Param("applicantid") Integer applicantid);

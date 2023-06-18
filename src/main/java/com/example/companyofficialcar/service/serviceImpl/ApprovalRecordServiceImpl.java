@@ -47,6 +47,11 @@ public class ApprovalRecordServiceImpl implements ApprovalRecordService {
         return approvalRecordDao.findAllApprovalRecords();
     }
 
+    @Override
+    public Integer countApprovalRecord() {
+        return approvalRecordDao.countApprovalRecord();
+    }
+
 
 }
 

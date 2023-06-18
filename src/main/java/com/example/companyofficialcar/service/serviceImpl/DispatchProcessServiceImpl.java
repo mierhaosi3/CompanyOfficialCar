@@ -53,6 +53,11 @@ public class DispatchProcessServiceImpl implements DispatchProcessService {
     }
 
     @Override
+    public List<Object[]> findDispatchProcessWithUserAndDriverAndUserNameAndDriver(Integer userid) {
+        return dispatchProcessDao.findDispatchProcessWithUserAndDriverAndUserNameAndDriver(userid);
+    }
+
+    @Override
     public List<DispatchProcess> getAllDispatchProcess() {
         return dispatchProcessDao.findAll();
     }
@@ -63,8 +68,25 @@ public class DispatchProcessServiceImpl implements DispatchProcessService {
     }
 
     @Override
+    public List<Object[]> getDispatchProcessWithUserAndDriverAndUserName() {
+        return dispatchProcessDao.findDispatchProcessWithUserAndDriverAndUserName();
+    }
+
+    @Override
     public DispatchProcess exchangeStatus(int driverid, String status) {
         dispatchProcessDao.updateStatus(driverid,status);
+        return null;
+    }
+
+    @Override
+    public DispatchProcess exchangeDriverid(int captainid, int driverid) {
+        dispatchProcessDao.updatedDriverId(captainid,driverid);
+        return null;
+    }
+
+    @Override
+    public DispatchProcess exchangeVehicleid(int captainid, int vehicleid) {
+        dispatchProcessDao.updateVehicleid(captainid,vehicleid);
         return null;
     }
 }

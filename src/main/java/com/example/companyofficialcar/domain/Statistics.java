@@ -1,9 +1,14 @@
 package com.example.companyofficialcar.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "statistics")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
+
 public class Statistics {
     @Id
     @Column(name = "statisticsid")
@@ -16,7 +21,7 @@ public class Statistics {
     private Integer driverId;
 
     @Column(name = "month")
-    private Integer month;
+    private LocalDateTime month;
 
     @Column(name = "trips")
     private Integer trips;
@@ -55,11 +60,11 @@ public class Statistics {
         this.driverId = driverId;
     }
 
-    public Integer getMonth() {
+    public LocalDateTime getMonth() {
         return month;
     }
 
-    public void setMonth(Integer month) {
+    public void setMonth(LocalDateTime month) {
         this.month = month;
     }
 

@@ -62,4 +62,9 @@ public class CarRequestServiceImpl implements CarRequestService {
         return null;
     }
 
+    @Override
+    public Integer countCarRequests() {
+        return carRequestDao.countCarRequests();
+    }
+
 }

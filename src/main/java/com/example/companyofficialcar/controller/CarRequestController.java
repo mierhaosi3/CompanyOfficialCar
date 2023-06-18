@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,8 +27,12 @@ public class CarRequestController {
         this.carRequestService = carRequestService;
     }
 
-    @PostMapping
+    @PostMapping("/addCarRequest")
     public ResponseEntity<CarRequest> addCarRequest(@RequestBody CarRequest carRequest) {
+        Integer requestId = carRequest.getRequestId();
+        // 设置 requestid 到 CarRequest 对象
+        carRequest.setRequestId(requestId);
+        System.out.println(requestId);
         CarRequest addedCarRequest = carRequestService.addCarRequest(carRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(addedCarRequest);
     }
@@ -80,5 +86,13 @@ public class CarRequestController {
     @GetMapping("/Allprofile")
     public List<Object[]> getAllStatisticsWithFleetAndDriver(){
         return carRequestService.getCarRequestsWithApplicantUsername();
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Map<String, Integer>> getCarRequestCount() {
+        Integer count = carRequestService.countCarRequests();
+        Map<String, Integer> response = new HashMap<>();
+        response.put("count", count);
+        return ResponseEntity.ok(response);
     }
 }

@@ -4,7 +4,9 @@ import com.example.companyofficialcar.domain.DispatchProcess;
 import com.example.companyofficialcar.service.DispatchProcessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -51,6 +53,21 @@ public class DispatchProcessController {
         dispatchProcessService.exchangeStatus(processid, decodedfleetname);
         return ResponseEntity.ok("exchangeDriverName");
     }
+    @PostMapping(value = "/{processid}/driverid", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<String> exchangeDriverid(@PathVariable int processid, @RequestBody MultiValueMap<String, String> formData) {
+        int driverid = Integer.parseInt(formData.getFirst("driverid"));
+        System.out.println(driverid);
+        dispatchProcessService.exchangeDriverid(processid, driverid);
+        return ResponseEntity.ok("exchangeVehicleFleet");
+    }
+
+    @PostMapping(value = "/{processid}/vehicleid", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<String> exchangeVehicleid(@PathVariable int processid, @RequestBody MultiValueMap<String, String> formData) {
+        int vehicleid = Integer.parseInt(formData.getFirst("vehicleid"));
+        System.out.println(vehicleid);
+        dispatchProcessService.exchangeVehicleid(processid, vehicleid);
+        return ResponseEntity.ok("exchangeVehicleFleet");
+    }
 
     @PutMapping
     public ResponseEntity<DispatchProcess> updateDispatchProcess(@RequestBody DispatchProcess dispatchProcess) {
@@ -79,6 +96,17 @@ public class DispatchProcessController {
         List<DispatchProcess> dispatchProcesses = dispatchProcessService.findDispatchProcessesByDriverId(driverId);
         return new ResponseEntity<>(dispatchProcesses, HttpStatus.OK);
     }
+    /*
+    * 司机专用接口*/
+    @GetMapping("/drivers/{userid}")
+    public ResponseEntity<List<Object[]>> findDispatchProcessWithUserAndDriverAndUserNameAndDriver(@PathVariable Integer userid) {
+        List<Object[]> dispatchProcesses = dispatchProcessService.findDispatchProcessWithUserAndDriverAndUserNameAndDriver(userid);
+        if (!dispatchProcesses.isEmpty()) {
+            return new ResponseEntity<>(dispatchProcesses, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
 
     @GetMapping("/status/{status}")
     public ResponseEntity<List<DispatchProcess>> findDispatchProcessesByStatus(@PathVariable String status) {
@@ -94,5 +122,10 @@ public class DispatchProcessController {
     @GetMapping("/Allprofile")
     public List<Object[]> getAllStatisticsWithFleetAndDriver(){
         return dispatchProcessService.getDispatchProcessWithUserAndDriver();
+    }
+
+    @GetMapping("/AllprofileWithName")
+    public List<Object[]> getAllStatisticsWithFleetAndDriverWithName(){
+        return dispatchProcessService.getDispatchProcessWithUserAndDriverAndUserName();
     }
 }
