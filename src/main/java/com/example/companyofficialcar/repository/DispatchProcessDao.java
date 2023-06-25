@@ -40,9 +40,9 @@ public interface DispatchProcessDao extends JpaRepository<DispatchProcess, Integ
 
     @Query("SELECT dp, u.username, d.name, u2.username " +
             "FROM DispatchProcess dp " +
-            "JOIN User u ON dp.captainId = u.userid " +
-            "JOIN Driver d ON dp.driverId = d.driverId " +
-            "JOIN User u2 ON dp.requestId = u2.userid")
+            "LEFT JOIN User u ON dp.captainId = u.userid " +
+            "LEFT JOIN Driver d ON dp.driverId = d.driverId " +
+            "LEFT JOIN User u2 ON dp.requestId = u2.userid")
     List<Object[]> findDispatchProcessWithUserAndDriverAndUserName();
 
     @Query("SELECT dp, u.username, d.name, u2.username " +
@@ -68,5 +68,7 @@ public interface DispatchProcessDao extends JpaRepository<DispatchProcess, Integ
     @Query("UPDATE DispatchProcess dp SET dp.vehicleid = :vehicleid WHERE dp.requestId = :requestid")
     void updateVehicleid(@Param("requestid") int requestid, @Param("vehicleid") int vehicleid);
 
+    @Query("SELECT COUNT(c) FROM DispatchProcess c" )
+    Integer countDispatch();
 }
 

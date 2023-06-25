@@ -1,9 +1,11 @@
 package com.example.companyofficialcar.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 @Table(name = "approvalrecord")
 public class ApprovalRecord {

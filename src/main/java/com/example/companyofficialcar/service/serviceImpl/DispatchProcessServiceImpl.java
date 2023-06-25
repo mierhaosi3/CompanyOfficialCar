@@ -89,4 +89,9 @@ public class DispatchProcessServiceImpl implements DispatchProcessService {
         dispatchProcessDao.updateVehicleid(captainid,vehicleid);
         return null;
     }
+
+    @Override
+    public Integer countDispatch() {
+        return dispatchProcessDao.countDispatch();
+    }
 }

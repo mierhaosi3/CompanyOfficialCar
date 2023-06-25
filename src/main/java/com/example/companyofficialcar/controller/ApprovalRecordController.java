@@ -24,9 +24,9 @@ public class ApprovalRecordController {
 
     @PostMapping("/add")
     public ResponseEntity<ApprovalRecord> addApprovalRecord(@RequestBody ApprovalRecord approvalRecord) {
-        Integer requestId = approvalRecord.getRequestId();
-        approvalRecord.setRequestId(requestId);
-
+        Integer requestid = approvalRecord.getRequestId();
+        approvalRecord.setRequestId(requestid);
+        System.out.println(requestid);
         ApprovalRecord addedRecord = approvalRecordService.addApprovalRecord(approvalRecord);
         return ResponseEntity.status(HttpStatus.CREATED).body(addedRecord);
     }

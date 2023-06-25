@@ -3,6 +3,8 @@ package com.example.companyofficialcar.controller;
 import com.example.companyofficialcar.domain.Statistics;
 import com.example.companyofficialcar.service.StatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +20,12 @@ public class StatisticsController {
     }
 
     @PostMapping("/add")
-    public Statistics addStatistics(@RequestBody Statistics statistics) {
+    public ResponseEntity<Statistics> addStatistics(@RequestBody Statistics statistics) {
         Integer statustucsid = statistics.getStatisticsId();
         statistics.setStatisticsId(statustucsid);
         System.out.println(statustucsid);
-        return statisticsService.addStatistics(statistics);
+        Statistics addstatistics = statisticsService.addStatistics(statistics);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addstatistics);
     }
 
     @DeleteMapping("/{id}")

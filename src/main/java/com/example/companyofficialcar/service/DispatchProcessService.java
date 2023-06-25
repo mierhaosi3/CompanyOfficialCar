@@ -36,4 +36,7 @@ public interface DispatchProcessService {
 
     DispatchProcess exchangeVehicleid(int captainid,int vehicleid);
 
+    Integer countDispatch();
+
+
 }

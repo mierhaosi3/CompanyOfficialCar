@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,10 +27,22 @@ public class DispatchProcessController {
         this.dispatchProcessService = dispatchProcessService;
     }
 
-    @PostMapping
+    @PostMapping("/addCarRequest")
     public ResponseEntity<DispatchProcess> addDispatchProcess(@RequestBody DispatchProcess dispatchProcess) {
+        Integer processId = dispatchProcess.getProcessId();
+        dispatchProcess.setProcessId(processId);
+        System.out.println(processId);
+        System.out.println(dispatchProcess);
         DispatchProcess newDispatchProcess = dispatchProcessService.addDispatchProcess(dispatchProcess);
         return new ResponseEntity<>(newDispatchProcess, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Map<String, Integer>> getCarRequestCount() {
+        Integer count = dispatchProcessService.countDispatch();
+        Map<String, Integer> response = new HashMap<>();
+        response.put("count", count);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{processId}")
