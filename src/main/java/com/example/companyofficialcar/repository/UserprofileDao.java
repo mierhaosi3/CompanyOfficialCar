@@ -12,28 +12,23 @@ import java.util.List;
 
 @Repository
 public interface UserprofileDao extends JpaRepository<Userprofile,Integer> {
-    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar " +
-            "FROM User u JOIN Userprofile up ON u.userid = up.userid")
+    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar FROM User u LEFT JOIN Userprofile up ON u.userid = up.userid ")
     List<Object[]> getUserProfileDetails();
     Userprofile findByUserid(int userid);
 
-    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar " +
-            "FROM User u JOIN Userprofile up ON u.userid = up.userid " +
+    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar FROM User u LEFT JOIN Userprofile up ON u.userid = up.userid " +
             "WHERE u.usertype = '司机' OR u.usertype = '车队队长'")
     List<Object[]> getUserProfileDetailsCar();
 
-    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar " +
-            "FROM User u JOIN Userprofile up ON u.userid = up.userid " +
+    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar FROM User u LEFT JOIN Userprofile up ON u.userid = up.userid " +
             "WHERE u.usertype = '司机'")
     List<Object[]> getUserProfileDetailsDriver();
 
-    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar " +
-            "FROM User u JOIN Userprofile up ON u.userid = up.userid " +
+    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar FROM User u LEFT JOIN Userprofile up ON u.userid = up.userid " +
             "WHERE u.usertype = '车队队长'")
     List<Object[]> getUserProfileDetailsDriverCap();
 
-    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar " +
-            "FROM User u JOIN Userprofile up ON u.userid = up.userid " +
+    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar FROM User u LEFT JOIN Userprofile up ON u.userid = up.userid " +
             "WHERE u.usertype = '员工'")
     List<Object[]> getUserProfileDetailsStaff();
 
@@ -42,15 +37,15 @@ public interface UserprofileDao extends JpaRepository<Userprofile,Integer> {
             "WHERE u.usertype = '领导'")
     List<Object[]> getUserProfileDetailsLeader();
 
-    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar " +
-            "FROM User u JOIN Userprofile up ON u.userid = up.userid " +
+    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar FROM User u LEFT JOIN Userprofile up ON u.userid = up.userid " +
             "WHERE u.username = :username")
     List<Object[]> getUserprofileByName(@Param("username") String username);
 
-    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar ,u.password " +
-            "FROM User u JOIN Userprofile up ON u.userid = up.userid " +
+    @Query("SELECT u.userid, u.username, u.usertype, up.name, up.avatar FROM User u LEFT JOIN Userprofile up ON u.userid = up.userid " +
             "WHERE u.userid = :userid")
     List<Object[]> getUserprofileByUserid(@Param("userid") int userid);
+
+
 
     @Modifying
     @Transactional
